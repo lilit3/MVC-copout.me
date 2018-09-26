@@ -1,7 +1,17 @@
 <?php
 
+use Routing\Router;
+
 class MainController extends AbstractController
 {
+
+	protected $router;
+	
+	public function __construct(Router $router)
+    {
+        $this->router = $router;
+    }
+
 	public function index()
 	{
 		$model = $this->getModel(Model::class);
@@ -31,7 +41,7 @@ class MainController extends AbstractController
 	public function copout()
 	{
 		$model = $this->getModel(Model::class);
-		$data = $model->getDataCopout($_GET['id']);
+		$data = $model->getDataCopout();
 		$this->render('view/copout.php', $data);
 	}
 
@@ -39,4 +49,5 @@ class MainController extends AbstractController
 	{
 		$this->render('view/page404.php', []);
 	}
+
 }
