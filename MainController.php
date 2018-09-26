@@ -35,7 +35,7 @@ class MainController extends AbstractController
 
 	public function addCopout()
 	{
-		$this->render('view/addCopout.php', []);
+		$this->render('view/addCopout.php');
 	}
 
 	public function copout()
@@ -47,7 +47,7 @@ class MainController extends AbstractController
 
 	public function page404()
 	{
-		$this->render('view/page404.php', []);
+		$this->render('view/page404.php');
 	}
 
 }
