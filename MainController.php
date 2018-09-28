@@ -1,16 +1,16 @@
 <?php
 
-use Routing\Router;
+// use Routing\Router;
 
 class MainController extends AbstractController
 {
 
-	protected $router;
+	// protected $router;
 	
-	public function __construct(Router $router)
-    {
-        $this->router = $router;
-    }
+	// public function __construct(Router $router)
+ //    {
+ //        $this->router = $router;
+ //    }
 
 	public function index()
 	{
@@ -47,6 +47,7 @@ class MainController extends AbstractController
 
 	public function page404()
 	{
+		http_response_code(404); 
 		$this->render('view/page404.php');
 	}
 

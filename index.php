@@ -1,37 +1,51 @@
 <?php
 require 'Model.php';
+require 'BlogModel.php';
 require 'AbstractController.php';
 require 'MainController.php';
-require 'bootstrap.php';
-require 'func.php';
+require 'BlogController.php';
+//require 'bootstrap.php';
 
-use Routing\Router;
-use Routing\MatchedRoute;
+$page = filter_input(INPUT_GET, 'page', FILTER_DEFAULT);
 
-try {
+switch ($page) {
+    case null:
+    case 'home':
+        $nameController = MainController::class;
+        $method = 'index';
+        break;
 
-    $router = new Router(GET_HTTP_HOST());
-    $router->add('home', '/', 'MainController:index');
-    $router->add('about', '/about', 'MainController:aboutProject');
-    $router->add('topten', '/topten', 'MainController:topTen');
-    $router->add('add', '/add', 'MainController:addCopout');
+     case 'topten':
+        $nameController = MainController::class;
+        $method = 'topTen';
+        break;
 
-    $router->add('copout', '/copout', 'MainController:copout');
+    case 'about':
+        $nameController = MainController::class;
+        $method = 'aboutProject';
+        break;
 
-    $route = $router->match(GET_METHOD(), GET_PATH_INFO());
+     case 'add':
+        $nameController = MainController::class;
+        $method = 'addCopout';
+        break;
 
-    if (null == $route) {
-        $route = new MatchedRoute('MainController:page404');
-    }
+     case 'copout':
+        $nameController = MainController::class;
+        $method = 'copout';
+        break;
 
-    list($class, $action) = explode(':', $route->getController(), 2);
-
-    call_user_func_array(array(new $class($router), $action), $route->getParameters());
-
-} catch (Exception $e) {
-    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-
-    echo $e->getMessage();
-    echo $e->getTraceAsString();
-    exit;
+    //Blog
+    case 'know':
+        $nameController = BlogController::class;
+        $method = 'knowledges';
+        break;
+    
+    default:
+        $nameController = MainController::class;
+        $method = 'page404';
+        break;
 }
+
+$controller = new $nameController();
+$controller->$method();
