@@ -6,7 +6,7 @@ require 'MainController.php';
 require 'BlogController.php';
 //require 'bootstrap.php';
 
-$page = filter_input(INPUT_GET, 'page', FILTER_DEFAULT);
+$page = filter_input(INPUT_GET, 'page');
 
 switch ($page) {
     case null:
@@ -25,20 +25,20 @@ switch ($page) {
         $method = 'aboutProject';
         break;
 
-     case 'add':
-        $nameController = MainController::class;
-        $method = 'addCopout';
-        break;
-
-     case 'copout':
+      case 'copout':
         $nameController = MainController::class;
         $method = 'copout';
         break;
-
+  
     //Blog
-    case 'know':
+    case 'knows':
         $nameController = BlogController::class;
         $method = 'knowledges';
+        break;
+    
+    case 'know':
+        $nameController = BlogController::class;
+        $method = 'knowledge';
         break;
     
     default:

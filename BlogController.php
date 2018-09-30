@@ -2,19 +2,24 @@
 
 class BlogController extends AbstractController
 {
-    public function knowledges();
+    public function knowledges()
     {
-    	$model = $this->getModel(BlogModel::class);
-    	var_dump($model);
-    	//$knowleges = $model->getKnowledges(compact($model));
-    	//$this->render('view/knovleges.php');
+    	   $model = $this->getModel(BlogModel::class);
+    	   $knowledges = $model->getKnowledges();
+    	   $this->render('view/knowledges.php', compact('knowledges'));
 
     }
-
-	public function page404()
-	{
-		http_response_code(404); 
-		$this->render('view/page404.php');
-	}
+  
+  public function knowledge()
+    {
+         $id = filter_input(INPUT_GET, 'id');
+    	   $model = $this->getModel(BlogModel::class);
+    	   $knowledge = $model->getKnowledge($id);
+    
+    if (!$knowledge) {
+       return $this->render('view/page404.php');
+    }
+    	   $this->render('view/knowledge.php', compact('knowledge'));
+    }
 
 }
