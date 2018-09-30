@@ -12,7 +12,7 @@ class BlogController extends AbstractController
   
   public function knowledge()
     {
-         $id = filter_input(INPUT_GET, 'id');
+           $id = filter_input(INPUT_GET, 'id');
     	   $model = $this->getModel(BlogModel::class);
     	   $knowledge = $model->getKnowledge($id);
     
